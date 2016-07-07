@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
  */
 
 
-public class test1 {
+public class Test1 {
     @Test
     public void testss(){
         assertThat(1, is(1));
