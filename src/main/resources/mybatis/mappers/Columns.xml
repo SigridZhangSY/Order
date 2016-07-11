@@ -3,11 +3,33 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="columns">
-    <sql id="user">
-        U.id as userId,
-        U.name as userName,
-        U.email as userEmail,
-        U.password as userPassword,
-        U.role as userRole
+    <sql id="product">
+        P.product_id as productId,
+        P.name as productName,
+        P.description as productDescription,
+        P.price as productPrice,
+        P.rating as productRating
+    </sql>
+    <sql id="order">
+        O.order_id as order_id,
+        O.user_id as user_id,
+        O.name as user_name,
+        O.address as user_address,
+        O.phone as user_phone,
+        O.order_time as order_time,
+        O.total_price as total_price
+    </sql>
+    <sql id="order_item">
+        T.product_id as product_id,
+        T.quantity as quantity,
+        T.amount as amount
+    </sql>
+    <sql id="payment">
+        P.pay_type as pay_type,
+        P.amount as amount,
+        P.pay_time as pay_time
     </sql>
 </mapper>
+
+
+

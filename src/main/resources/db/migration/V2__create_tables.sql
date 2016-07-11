@@ -1,0 +1,27 @@
+CREATE TABLE USERS(
+  user_id VARCHAR(255) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO USERS (user_id, name) VALUES ("1", "kayla");
+
+CREATE TABLE ORDERS(
+  order_id VARCHAR(255) PRIMARY KEY,
+  user_id VARCHAR(255),
+  name VARCHAR(255),
+  address VARCHAR(255) NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  order_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES USERS(user_id),
+  total_price FLOAT
+);
+
+
+CREATE TABLE ORDERITEMS(
+  order_id VARCHAR(255) ,
+  product_id VARCHAR(255),
+  quantity INTEGER,
+  amount FLOAT,
+  FOREIGN KEY (order_id) REFERENCES ORDERS(order_id),
+  FOREIGN KEY (product_id) REFERENCES PRODUCTS(product_id)
+);
