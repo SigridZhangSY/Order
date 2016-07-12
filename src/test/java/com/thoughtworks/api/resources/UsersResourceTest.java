@@ -75,8 +75,9 @@ public class UsersResourceTest extends ApiSupport {
         orderMap.put("orderItem", list);
 
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders");
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders");
+        WebTarget target = target("/users/1/orders");
         Response created = target.request().post(Entity.json(orderMap));
         assertThat(created.getStatus(), is(HttpStatus.CREATED_201.getStatusCode()));
 
@@ -104,8 +105,10 @@ public class UsersResourceTest extends ApiSupport {
         orderMap.put("orderItem", list);
 
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders");
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders");
+        WebTarget target = target("/users/1/orders");
+
         Response response = target.request().get();
         response.close();
         assertEquals(response.getStatus(), 200);
@@ -133,8 +136,10 @@ public class UsersResourceTest extends ApiSupport {
         OrderRecord expect_oreder = user.createOrder(orderMap, "1");
         String orderId = expect_oreder.getOrderId();
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId);
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId);
+        WebTarget target = target("/users/1/orders/" + orderId);
+
         Response response = target.request().get();
         response.close();
         assertEquals(response.getStatus(), 200);
@@ -166,8 +171,10 @@ public class UsersResourceTest extends ApiSupport {
         payMap.put("pay_type", "CASH");
         payMap.put("amount", "100");
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId + "/payment");
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId + "/payment");
+        WebTarget target = target("/users/1/orders/" + orderId + "/payment");
+
         Response created = target.request().post(Entity.json(payMap));
         assertThat(created.getStatus(), is(HttpStatus.CREATED_201.getStatusCode()));
     }
@@ -198,8 +205,10 @@ public class UsersResourceTest extends ApiSupport {
         payMap.put("amount", "100");
         user.createPayment(payMap, orderId);
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId + "/payment");
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId + "/payment");
+        WebTarget target = target("/users/1/orders/" + orderId + "/payment");
+
         Response response = target.request().get();
         assertEquals(response.getStatus(), 200);
 //        final Map payment = response.readEntity(Map.class);

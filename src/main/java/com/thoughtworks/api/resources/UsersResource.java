@@ -1,17 +1,14 @@
 package com.thoughtworks.api.resources;
 
 import com.thoughtworks.api.core.Order;
-import com.thoughtworks.api.core.OrderItem;
 import com.thoughtworks.api.core.UserRepository;
 import com.thoughtworks.api.jersey.Routes;
-import com.thoughtworks.api.records.OrderRecord;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +19,6 @@ import java.util.Map;
 
 @Path("users")
 public class UsersResource {
-
     @POST
     @Path("{userid}/orders")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -54,7 +50,7 @@ public class UsersResource {
         orderMap.put("name", order.getName());
         orderMap.put("address", order.getAddress());
         orderMap.put("phone", order.getPhone());
-        orderMap.put("total_price", order.getTotal_price());
+        orderMap.put("total_price", order.getTotalPrice());
         orderMap.put("create_at", order.getTime());
         orderMap.put("orderItem", userRepository.getOrderItemsById(orderId));
 

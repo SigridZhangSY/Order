@@ -68,8 +68,8 @@ public class ProductsTest extends  ApiSupport {
         ProductRecord expect = product.create(productMap);
         String productId = expect.getProductId();
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/products");
+
+        WebTarget target = target("/products");
         Response response = target.request().get();
 
         assertEquals(response.getStatus(), 200);
@@ -91,8 +91,9 @@ public class ProductsTest extends  ApiSupport {
         productMap.put("price", 12.5);
         productMap.put("rating", 4);
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/products");
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/products");
+        WebTarget target = target("/products");
         Response created = target.request().post(Entity.json(productMap));
         assertThat(created.getStatus(), is(HttpStatus.CREATED_201.getStatusCode()));
     }
@@ -107,8 +108,9 @@ public class ProductsTest extends  ApiSupport {
         ProductRecord expect = product.create(productMap);
         String productId = expect.getProductId();
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://0.0.0.0:8083/products/" + productId);
+//        Client client = ClientBuilder.newClient();
+//        WebTarget target = client.target("http://0.0.0.0:8083/products/" + productId);
+        WebTarget target = target("/products/" + productId);
         Response response = target.request().get();
 
         assertEquals(response.getStatus(), 200);

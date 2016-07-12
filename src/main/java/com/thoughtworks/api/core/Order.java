@@ -39,7 +39,7 @@ public class Order {
     public String getName(){return this.name;}
     public String getAddress(){return this.address;}
     public String getPhone(){return this.phone;}
-    public float getTotal_price(){return this.total_price;}
+    public float getTotalPrice(){return this.total_price;}
     public String getTime(){return this.time;}
 
 
