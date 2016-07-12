@@ -9,11 +9,19 @@
     <settings>
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
+<<<<<<< HEAD
     <typeHandlers>
         <typeHandler handler="com.thoughtworks.api.infrastructure.mybatis.handlers.DateTimeTypeHandler"
                      javaType="org.joda.time.DateTime"/>
     </typeHandlers>
     <objectFactory type="com.thoughtworks.api.infrastructure.mybatis.factory.ObjectFactory"/>
+=======
+    <!--<typeHandlers>-->
+        <!--<typeHandler handler="com.thoughtworks.ketsu.infrastructure.mybatis.handlers.DateTimeTypeHandler"-->
+                     <!--javaType="org.joda.time.DateTime"/>-->
+    <!--</typeHandlers>-->
+    <!--<objectFactory type="com.thoughtworks.ketsu.infrastructure.mybatis.factory.ObjectFactory"/>-->
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC">
@@ -23,7 +31,9 @@
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="${db.url}"/>
-                <property name="driver.encoding" value="UTF8"/>
+                <!--<property name="url" value="jdbc:mysql://localhost:3306/data_store"/>-->
+                <!--<property name="username" value="mysql"/>-->
+                <!--<property name="password" value="mysql"/>-->
                 <property name="poolPingQuery" value="select 1"/>
                 <property name="poolPingEnabled" value="true"/>
                 <property name="poolPingConnectionsNotUsedFor" value="3600000"/>
@@ -35,6 +45,9 @@
     <mappers>
         <mapper resource="mybatis/mappers/Records.xml"/>
         <mapper resource="mybatis/mappers/Columns.xml"/>
+        <!--<mapper resource="mybatis/mappers/UserMapper.xml"/>-->
+        <mapper resource="mybatis/mappers/TestMapper.xml"/>
+        <mapper resource="mybatis/mappers/ProductMapper.xml"/>
         <mapper resource="mybatis/mappers/UserMapper.xml"/>
         <mapper resource="mybatis/mappers/ProductMapper.xml"/>
     </mappers>

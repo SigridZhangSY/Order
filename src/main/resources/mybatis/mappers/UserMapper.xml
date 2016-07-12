@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<<<<<<< HEAD
 <mapper namespace="com.thoughtworks.api.infrastructure.mybatis.mappers.UserMapper">
     <insert id="save">
         INSERT INTO users (id, name, email, role, password)
         VALUES (#{user.userId.id}, #{user.name}, #{user.email}, #{user.role},  #{user.password})
+=======
+<mapper namespace="com.thoughtworks.api.mappers.UserMapper">
+    <insert id="saveOrder">
+        INSERT INTO ORDERS (order_id, user_id, name, address, phone, total_price)
+        VALUES(#{order_id}, #{user_id}, #{name}, #{address}, #{phone}, #{total_price})
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06
     </insert>
-
-    <select id="ofId" resultMap="records.user">
+    <select id="findById" resultMap="records.order">
         SELECT
-          <include refid="columns.user"/>
-        FROM users U
-        WHERE U.id = #{id}
+        <include refid="columns.order"/>
+        FROM ORDERS O
+        WHERE O.order_id = #{order_id}
     </select>
-    <select id="findByUserName" resultMap="records.user">
+    <select id="getOrderCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM ORDERS
+    </select>
+    <insert id="saveOrderItem">
+        INSERT INTO ORDERITEMS (order_id, product_id, quantity, amount)
+        VALUES(#{order_id}, #{product_id}, #{quantity}, #{amount})
+    </insert>
+    <select id="getProductPrice" resultType="float">
         SELECT
-        <include refid="columns.user"/>
-        FROM users U
-        WHERE U.name = #{userName}
+        P.price
+        FROM PRODUCTS P
+        WHERE P.product_id = #{product_id}
+    </select>
+    <select id="getOrders" resultMap="records.order">
+        SELECT
+        <include refid="columns.order"/>
+        FROM ORDERS O
+    </select>
+    <select id="findOrderItemsById" resultMap="records.order_item">
+        SELECT
+        <include refid="columns.order_item"/>
+        FROM ORDERITEMS T
+        WHERE T.order_id = #{order_id}
+    </select>
+    <insert id="savePayment">
+        INSERT INTO PAYMENTS (order_id, pay_type, amount)
+        VALUES(#{order_id}, #{pay_type}, #{amount})
+    </insert>
+    <select id="findPayment" resultMap="records.payment">
+        SELECT
+        <include refid="columns.payment"/>
+        FROM PAYMENTS P
+        WHERE P.order_id = #{order_id}
     </select>
 </mapper>
+
+
+

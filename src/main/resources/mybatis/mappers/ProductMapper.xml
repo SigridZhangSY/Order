@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<<<<<<< HEAD
 <mapper namespace="com.thoughtworks.api.infrastructure.mybatis.mappers.ProductMapper">
     <select id="findProducts" resultMap="records.product">
         SELECT
@@ -8,3 +9,27 @@
     </select>
 
 </mapper>
+=======
+<mapper namespace="com.thoughtworks.api.mappers.ProductMapper">
+    <select id="getAllProduct" resultMap="records.product">
+        SELECT
+        <include refid="columns.product"/>
+        FROM products P
+    </select>
+    <select id="findById" resultMap="records.product">
+        SELECT
+        <include refid="columns.product"/>
+        FROM products P
+        WHERE P.product_id = #{productId}
+    </select>
+    <insert id="save">
+        INSERT INTO products (product_id, name, description, price, rating)
+        VALUES(#{productId}, #{name}, #{description}, #{price}, #{rating})
+    </insert>
+    <select id="getProductCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM PRODUCTS
+    </select>
+ </mapper>
+
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06

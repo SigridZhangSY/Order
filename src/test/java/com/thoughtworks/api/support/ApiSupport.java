@@ -1,5 +1,12 @@
 package com.thoughtworks.api.support;
 
+<<<<<<< HEAD:src/test/java/com/thoughtworks/api/support/ApiSupport.java
+=======
+/**
+ * Created by syzhang on 7/11/16.
+ */
+
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06:src/test/java/com/thoughtworks/api/support/ApiSupport.java
 import com.thoughtworks.api.util.Json;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.ServletRegistration;
@@ -14,12 +21,13 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.spi.TestContainerException;
 import org.junit.After;
 import org.junit.Before;
-import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
@@ -29,7 +37,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-
 public class ApiSupport {
     JerseyTest test;
 
@@ -49,8 +56,6 @@ public class ApiSupport {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
         test = new JerseyTest() {
             @Override
             protected Application configure() {

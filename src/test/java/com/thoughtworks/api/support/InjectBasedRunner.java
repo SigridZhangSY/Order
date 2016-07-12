@@ -1,5 +1,6 @@
 package com.thoughtworks.api.support;
 
+import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
 import com.google.inject.CreationException;
 import com.google.inject.Injector;
@@ -7,9 +8,20 @@ import com.google.inject.Provider;
 import com.google.inject.name.Names;
 import com.google.inject.spi.Message;
 import com.google.inject.util.Modules;
+<<<<<<< HEAD:src/test/java/com/thoughtworks/api/support/InjectBasedRunner.java
 import com.thoughtworks.api.domain.user.EncryptionService;
 import com.thoughtworks.api.infrastructure.records.Models;
 import com.thoughtworks.api.infrastructure.util.DefaultEncryptionService;
+=======
+//import com.thoughtworks.api.core.ConsulRepository;
+//import com.thoughtworks.api.core.LogFetcher;
+import com.thoughtworks.api.jersey.Api;
+//import com.thoughtworks.api.records.DefaultEventHandler;
+//import com.thoughtworks.api.records.EventHandler;
+import com.thoughtworks.api.records.Models;
+//import com.thoughtworks.api.resources.services.AuthorizationService;
+//import com.thoughtworks.api.resources.services.DefaultAuthorizationService;
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06:src/test/java/com/thoughtworks/api/support/InjectBasedRunner.java
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.internal.inject.Injections;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -22,10 +34,7 @@ import org.junit.runners.model.InitializationError;
 import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static com.google.inject.Guice.createInjector;
 import static java.util.Arrays.asList;
@@ -62,33 +71,36 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
 
     private List<AbstractModule> getAbstractModules() {
         Properties properties = new Properties();
+<<<<<<< HEAD:src/test/java/com/thoughtworks/api/support/InjectBasedRunner.java
         String dbname = System.getenv().getOrDefault("DB_NAME", "data_store");
         String host = System.getenv().getOrDefault("DB_HOST", "localhost");
         String port = System.getenv().getOrDefault("DB_PORT", "3306");
         String username = System.getenv().getOrDefault("DB_USERNAME", "mysql");
         String password = System.getenv().getOrDefault("DB_PASSWORD", "mysql");
+=======
+        final Map<String, String> envs = System.getenv();
+        String host = envs.getOrDefault("DB_HOST", "localhost");
+        String port = envs.getOrDefault("DB_PORT", "3306");
+        String dbName = envs.getOrDefault("DB_NAME", "data_store");
+        String username = envs.getOrDefault("DB_USERNAME", "mysql");
+        String password = envs.getOrDefault("DB_PASSWORD", "mysql");
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06:src/test/java/com/thoughtworks/api/support/InjectBasedRunner.java
         String connectURL = String.format(
                 "jdbc:mysql://%s:%s/%s?user=%s&password=%s&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull",
                 host,
                 port,
-                dbname,
+                dbName,
                 username,
                 password
         );
         properties.setProperty("db.url", connectURL);
         List<AbstractModule> modules = new ArrayList<>(asList(new AbstractModule[]{
-                new AbstractModule() {
-                    @Override
-                    protected void configure() {
-                    }
-                },
                 new Models("development", properties),
                 new AbstractModule() {
                     @Override
                     protected void configure() {
                         bindConstant().annotatedWith(Names.named("server_uri")).to(SERVER_URI);
                         bind(ServiceLocator.class).toInstance(locator);
-
                         bind(javax.ws.rs.core.Application.class).toProvider(ApplicationProvider.class);
                         bind(ApiSupport.ClientConfigurator.class).toInstance(config -> {
                             config.register(JacksonFeature.class);
@@ -96,7 +108,43 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
                         bind(ApiSupport.SetUp.class).toInstance(() -> {
 
                         });
-                        bind(EncryptionService.class).to(DefaultEncryptionService.class);
+//                        bind(TestData.class).toInstance(new TestData() {
+//                        });
+//                        bind(EventHandler.class).to(DefaultEventHandler.class);
+//                        bind(EventBus.class).toProvider(new Provider<EventBus>() {
+//                            @Inject
+//                            Injector injector;
+
+//                            @Inject
+//                            EventHandler eventHandler;
+//                            @Override
+//                            public EventBus get() {
+//                                EventBus eventBus = new EventBus();
+//                                eventBus.register(eventHandler);
+//                                return eventBus;
+//                            }
+//                        });
+
+//                        bind(ConsulRepository.class).toInstance(new FakeConsulRepository());
+//                        bind(AuthorizationService.class).to(DefaultAuthorizationService.class);
+//                        bind(LogFetcher.class).toInstance(new LogFetcher() {
+//                            @Override
+//                            public Map<String, Object> getLogs(String appName, int logLines, long logId) {
+//                                final Map<String, Object> logs = new HashMap<String, Object>() {{
+//                                    put("total", 12);
+//                                    put("size", 2);
+//                                    final List<Object> items = new ArrayList<>();
+//                                    items.add(new HashMap<String, String>() {{
+//                                        put("message", "init success.");
+//                                    }});
+//                                    items.add(new HashMap<String, String>() {{
+//                                        put("message", "migration success.");
+//                                    }});
+//                                    put("items", items);
+//                                }};
+//                                return logs;
+//                            }
+//                        });
                     }
                 }}));
         modules.addAll(getModules());
@@ -126,7 +174,7 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
 
         @Override
         public javax.ws.rs.core.Application get() {
-            ApiForTest api = new ApiForTest();
+            Api api = new Api();
 
             api.register(new ContainerLifecycleListener() {
                 @Override
@@ -159,5 +207,4 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
         protected void configure() {
         }
     }
-
 }

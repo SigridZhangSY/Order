@@ -16,7 +16,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ApiTestRunner extends InjectBasedRunner {
+/**
+ * Created by syzhang on 7/11/16.
+ */
+public class ApiTestRunner extends InjectBasedRunner{
     @Inject
     private SqlSessionFactory sqlSessionFactory;
 
@@ -40,7 +43,27 @@ public class ApiTestRunner extends InjectBasedRunner {
                 // field in table A has reference for table B, then A should be deleted first
                 // otherwise exception will occur and database will be broken,
                 // remember to clean database manually before running tests when exception happens
-                statement.executeUpdate("DELETE FROM users");
+                statement.executeUpdate("DELETE FROM PAYMENTS");
+                statement.executeUpdate("DELETE FROM ORDERITEMS");
+                statement.executeUpdate("DELETE FROM ORDERS");
+                statement.executeUpdate("DELETE FROM PRODUCTS");
+
+//                statement.executeUpdate("DELETE FROM org_members");
+//                statement.executeUpdate("DELETE FROM organizations");
+//                statement.executeUpdate("DELETE FROM collaborators");
+//                statement.executeUpdate("DELETE FROM EVENTS");
+//                statement.executeUpdate("DELETE FROM STACK_EVENTS");
+//                statement.executeUpdate("DELETE FROM RELEASES");
+//                statement.executeUpdate("DELETE FROM VERIFIES");
+//                statement.executeUpdate("DELETE FROM BUILDS");
+//                statement.executeUpdate("DELETE FROM AUTHS;");
+//                statement.executeUpdate("DELETE FROM ROUTE_APPS;");
+//                statement.executeUpdate("DELETE FROM ROUTES;");
+//                statement.executeUpdate("DELETE FROM APPLICATIONS;");
+//                statement.executeUpdate("DELETE FROM STACKS;");
+//                statement.executeUpdate("DELETE FROM CREDENTIALS;");
+//                statement.executeUpdate("DELETE FROM USERS;");
+//                statement.executeUpdate("DELETE FROM DOMAINS;");
                 statement.close();
                 connection.commit();
             }

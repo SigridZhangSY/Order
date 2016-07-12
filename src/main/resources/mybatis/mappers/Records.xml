@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="records">
+<<<<<<< HEAD
     <resultMap id="userId" type="com.thoughtworks.api.domain.user.UserId">
         <constructor>
             <idArg column="userId" javaType="string"/>
@@ -15,6 +16,46 @@
         <result property="role" column="userRole"/>
         <result property="password" column="userPassword"/>
         <association property="userId" resultMap="userId"/>
+=======
+    <!--<resultMap id="userId" type="com.thoughtworks.ketsu.domain.user.UserId">-->
+        <!--<constructor>-->
+            <!--<idArg column="userId" javaType="string"/>-->
+        <!--</constructor>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="user" type="com.thoughtworks.ketsu.domain.user.User">-->
+        <!--<result property="name" column="userName"/>-->
+        <!--<result property="email" column="userEmail"/>-->
+        <!--<result property="role" column="userRole"/>-->
+        <!--<result property="password" column="userPassword"/>-->
+        <!--<association property="userId" resultMap="userId"/>-->
+    <!--</resultMap>-->
+    <resultMap id="product" type="com.thoughtworks.api.records.ProductRecord">
+        <id column="productID" property="product_id"/>
+        <result column="productName" property="name"/>
+        <result column="productDescription" property="description"/>
+        <result column="productPrice" property="price"/>
+        <result column="productRating" property="rating"/>
+    </resultMap>
+    <resultMap id="order" type="com.thoughtworks.api.records.OrderRecord">
+        <id column="order_id" property="order_id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="user_name" property="user_name"/>
+        <result column="user_address" property="user_address"/>
+        <result column="user_phone" property="user_phone"/>
+        <result column="order_time" property="order_time"/>
+        <result column="total_price" property="total_price"/>
+    </resultMap>
+    <resultMap id="order_item" type="com.thoughtworks.api.core.OrderItem">
+        <result column="product_id" property="product_id"/>
+        <result column="quantity" property="quantity"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+    <resultMap id="payment" type="com.thoughtworks.api.records.PaymentRecord">
+        <result column="pay_type" property="pay_type"/>
+        <result column="amount" property="amount"/>
+        <result column="pay_time" property="pay_time"/>
+>>>>>>> 264d7fc76e25ac1eba49258f3964ad65ac52cb06
     </resultMap>
     <resultMap id="product" type="com.thoughtworks.api.infrastructure.records.ProductRecord">
         <id column="productId" property="id"/>
@@ -24,3 +65,4 @@
         <result column="productRating" property="rating"/>
     </resultMap>
 </mapper>
+
