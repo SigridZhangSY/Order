@@ -196,6 +196,7 @@ public class UsersResourceTest extends ApiSupport {
         Map payMap = new HashMap<String, Object>();
         payMap.put("pay_type", "CASH");
         payMap.put("amount", "100");
+        user.createPayment(payMap, orderId);
 
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://0.0.0.0:8083/users/1/orders/" + orderId + "/payment");
