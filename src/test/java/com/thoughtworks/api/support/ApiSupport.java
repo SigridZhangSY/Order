@@ -5,7 +5,6 @@ package com.thoughtworks.api.support;
  */
 
 import com.thoughtworks.api.util.Json;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
@@ -123,18 +122,6 @@ public class ApiSupport {
 
     private Invocation.Builder session(Invocation.Builder request) {
         return request.header("Authorization", token);
-    }
-
-    protected static Map<String, Object> transform(String jsonString) {
-        ScriptEngine scriptEngine = new NashornScriptEngineFactory().getScriptEngine();
-        String stringifyScript = "function stringify(jsonString) {var result = eval(jsonString); return JSON.stringify(result);} stringify(" + jsonString + ")";
-
-        try {
-            return (Map<String, Object>) scriptEngine.eval("JSON.parse('" + String.valueOf(scriptEngine.eval(stringifyScript)) + "');");
-        } catch (ScriptException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
     }
 
     protected static Map<String, Object> copy(Map<String, Object> src) {
